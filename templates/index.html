@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classifier</title>
+   
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+    <!-- <script>
+        for (let i = 0; i < 30; i++) {
+            const p = document.createElement('div'); p.className = 'particle';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.top = Math.random() * 100 + '%';
+            p.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
+            p.style.setProperty('--ty', (Math.random() - 0.5) * 200 + 'px');
+            p.style.animationDelay = Math.random() * 20 + 's';
+            document.body.appendChild(p);
+        }
+    </script> -->
+
+    <div class="container">
+        <div class="header">
+            <h1>🎤 VOICE CLASSIFIER</h1>
+            <p class="subtitle">AI vs Human Detection</p>
+        </div>
+
+        <div class="controls">
+            <div class="file-input-wrapper">
+                <button id="uploadBtn" class="uplaod">📁 Upload Audio</button>
+                <input type="file" id="fileInput" accept="audio/*">
+            </div>
+            <button id="recordBtn">🎙️ Record Voice</button>
+            <button id="stopBtn" disabled>⏹️ Stop</button>
+            <button id="analyzeBtn" disabled>🔍 Analyze Now</button>
+        </div>
+
+        <div id="waveform"><canvas id="waveCanvas"></canvas></div>
+        <!-- AUDIO PLAYER -->
+        <audio id="audioPlayer" controls style="width:100%; margin-top:20px; display:none;"></audio>
+
+        <div class="loader" id="loader"></div>
+        <p class="status" id="status">🚀 Ready to detect AI or Human voices</p>
+
+        <div class="result" id="result">
+            <h2>Classification Result</h2>
+            <div class="result-badge" id="resultBadge">HUMAN</div>
+            <div class="confidence" id="confidence">Confidence: 95.5%</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+    </div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
