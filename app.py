@@ -113,15 +113,29 @@ import os
 app = Flask(__name__)
 CORS(app)
 
+# ================= BASE DIRECTORY =================
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+MODEL_PATH = os.path.join(BASE_DIR, "rf_model.pkl")
+SCALER_PATH = os.path.join(BASE_DIR, "scaler.pkl")
+
+print("📂 BASE DIR:", BASE_DIR)
+print("📦 MODEL PATH:", MODEL_PATH)
+print("📦 SCALER PATH:", SCALER_PATH)
+
 # ================= LOAD MODEL & SCALER =================
-MODEL_PATH = "rf_model.pkl"
-SCALER_PATH = "scaler.pkl"
+try:
+    with open(MODEL_PATH, "rb") as f:
+        model = pickle.load(f)
+    print("✅ Model loaded successfully")
 
-with open(MODEL_PATH, "rb") as f:
-    model = pickle.load(f)
+    with open(SCALER_PATH, "rb") as f:
+        scaler = pickle.load(f)
+    print("✅ Scaler loaded successfully")
 
-with open(SCALER_PATH, "rb") as f:
-    scaler = pickle.load(f)
+except Exception as e:
+    print("❌ Error loading model/scaler:", e)
+    raise e
 
 # ================= CONFIG =================
 SAMPLE_RATE = 16000
@@ -192,7 +206,6 @@ def predict():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
 
 # ================= RUN =================
 if __name__ == "__main__":
